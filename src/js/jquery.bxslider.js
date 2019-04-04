@@ -679,15 +679,20 @@
       slider.controls.next = $('<a class="bx-next" href="">' + slider.settings.nextText + '</a>');
       slider.controls.prev = $('<a class="bx-prev" href="">' + slider.settings.prevText + '</a>');
       // add click actions to the controls
-      slider.controls.next.on('click touchend', clickNextBind);
-      slider.controls.prev.on('click touchend', clickPrevBind);
+
       // if nextSelector was supplied, populate it
       if (slider.settings.nextSelector) {
         $(slider.settings.nextSelector).append(slider.controls.next);
+        $(slider.settings.nextSelector).bind('click touchend', clickNextBind);
+      } else {
+        slider.controls.next.on('click touchend', clickNextBind);
       }
       // if prevSelector was supplied, populate it
       if (slider.settings.prevSelector) {
         $(slider.settings.prevSelector).append(slider.controls.prev);
+        slider.controls.prev.on('click touchend', clickPrevBind);
+      } else {
+        $(slider.settings.prevSelector).bind('click touchend', clickPrevBind);
       }
       // if no custom selectors were supplied
       if (!slider.settings.nextSelector && !slider.settings.prevSelector) {
